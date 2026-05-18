@@ -1,10 +1,200 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-  <title>My First Website</title>
+<meta charset="UTF-8">
+<title>রহস্যের ডায়েরি</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0f0f0f;
+  color: #fff;
+  transition: 0.3s;
+}
+
+body.light {
+  background: #f2f2f2;
+  color: #111;
+}
+
+header {
+  background: #1c1c1c;
+  padding: 15px;
+  text-align: center;
+  color: #ff4444;
+  font-size: 22px;
+  position: relative;
+}
+
+body.light header {
+  background: #fff;
+  color: #d10000;
+}
+
+.credit {
+  font-size: 10px;
+  color: #888;
+  margin-top: 3px;
+}
+
+.toggle {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
+  padding: 5px 10px;
+  background: #333;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.container {
+  padding: 20px;
+}
+
+.story {
+  background: #1e1e1e;
+  margin-bottom: 10px;
+  padding: 12px;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: 0.3s;
+}
+
+body.light .story {
+  background: #fff;
+}
+
+.story:hover {
+  background: #2a2a2a;
+}
+
+.story.active {
+  border-left: 4px solid #00ff99;
+}
+
+#content {
+  margin-top: 15px;
+  padding: 15px;
+  background: #111;
+  min-height: 250px;
+  border: 1px solid #333;
+  white-space: pre-line;
+  transition: 0.3s;
+}
+
+body.light #content {
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.controls {
+  margin-top: 10px;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  margin-right: 5px;
+  background: #444;
+  color: #fff;
+}
+
+body.light button {
+  background: #ddd;
+  color: #000;
+}
+</style>
 </head>
+
 <body>
-  <h1>হ্যালো! এটা আমার প্রথম ওয়েবসাইট</h1>
-  <p>আমি Termux দিয়ে বানিয়েছি 🔥</p>
+
+<header>
+🕵️ রহস্যের ডায়েরি
+<div class="credit">Powered by Raju</div>
+<div class="toggle" onclick="toggleMode()">Mode</div>
+</header>
+
+<div class="container">
+
+<div id="storyList"></div>
+
+<div id="content">📖 গল্প পড়তে ক্লিক করো...</div>
+
+<div class="controls">
+  <button onclick="prevStory()">⬅ Prev</button>
+  <button onclick="nextStory()">Next ➡</button>
+</div>
+
+</div>
+
+<script>
+
+// সব গল্প এক জায়গায় (clean structure)
+const stories = [
+"রাত ৩টায় ফোন বেজে উঠল...\nঅচেনা কণ্ঠ বলল তুমি এখন একা নও...\nঘরের বাতাস হঠাৎ ঠান্ডা হয়ে গেল...\nআমি আর কখনো সেই ফোন ধরিনি।",
+
+"অফিসে ৭ নম্বর ফাইল নেই...\nস্ক্রিনে লেখা 'YOU ARE NOW FILE 8'...",
+
+"বন্ধ ঘরের ভেতরে শুধু আয়না...\nআয়নায় ছায়াটা হাসছে...\n'তুমি দেরি করে ফেলেছো...'",
+
+"পাশের ফ্ল্যাট ৫ বছর খালি...\nরাতে ফিসফিস: 'আমরা প্রতিবেশী'",
+
+"Room 7 সবসময় বন্ধ...\nআমি এখন সেই ক্লাসের অংশ...",
+
+"লিফটে ১৩ তলা নেই...\nকিন্তু লিফট নিজে থেমে গেল ১৩-এ...",
+
+"আয়নায় আমি নড়ছি না...\nকিন্তু অন্য আমি বেরিয়ে আসছে...",
+
+"রাতে কলিং বেল...\nদরজা খুলে দেখি কেউ নেই...\nভেতর থেকে দরজা বন্ধ!",
+
+"বাস স্টপে রাত...\nবাসে লেখা: 'এখানে কেউ নামতে পারে না'",
+
+"ইমেইল: DO NOT OPEN...\nYOU ARE THE MESSAGE NOW"
+];
+
+let current = 0;
+
+// লিস্ট auto generate
+const storyList = document.getElementById("storyList");
+
+stories.forEach((_, i) => {
+  const div = document.createElement("div");
+  div.className = "story";
+  div.innerText = (i+1) + ". রহস্য " + (i+1);
+  div.onclick = () => showStory(i);
+  storyList.appendChild(div);
+});
+
+function showStory(id) {
+  current = id;
+
+  document.querySelectorAll(".story")
+  .forEach(s => s.classList.remove("active"));
+
+  document.querySelectorAll(".story")[id].classList.add("active");
+
+  document.getElementById("content").innerText = stories[id];
+}
+
+function nextStory() {
+  if(current < stories.length - 1) current++;
+  showStory(current);
+}
+
+function prevStory() {
+  if(current > 0) current--;
+  showStory(current);
+}
+
+function toggleMode() {
+  document.body.classList.toggle("light");
+}
+
+</script>
+
 </body>
 </html>
