@@ -2,12 +2,14 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>রহস্যের ডায়েরি</title>
 
 <style>
 body {
   margin: 0;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   background: #0f0f0f;
   color: #fff;
   transition: 0.3s;
@@ -18,42 +20,48 @@ body.light {
   color: #111;
 }
 
+/* HEADER */
 header {
   background: #1c1c1c;
   padding: 15px;
   text-align: center;
   color: #ff4444;
-  font-size: 22px;
+  font-size: 20px;
   position: relative;
 }
 
 body.light header {
-  background: #fff;
+  background: #ffffff;
   color: #d10000;
 }
 
 .credit {
   font-size: 10px;
   color: #888;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
+/* MODE BUTTON */
 .toggle {
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: 10px;
+  top: 10px;
   cursor: pointer;
-  padding: 5px 10px;
+  padding: 6px 10px;
   background: #333;
   border-radius: 5px;
   font-size: 12px;
   color: #fff;
 }
 
+/* MAIN CONTAINER */
 .container {
-  padding: 20px;
+  padding: 15px;
+  max-width: 600px;
+  margin: auto;
 }
 
+/* STORY LIST */
 .story {
   background: #1e1e1e;
   margin-bottom: 10px;
@@ -61,6 +69,8 @@ body.light header {
   cursor: pointer;
   border-left: 4px solid transparent;
   transition: 0.3s;
+  border-radius: 6px;
+  word-wrap: break-word;
 }
 
 body.light .story {
@@ -75,14 +85,15 @@ body.light .story {
   border-left: 4px solid #00ff99;
 }
 
+/* CONTENT */
 #content {
   margin-top: 15px;
   padding: 15px;
   background: #111;
-  min-height: 250px;
+  min-height: 200px;
   border: 1px solid #333;
   white-space: pre-line;
-  transition: 0.3s;
+  border-radius: 6px;
 }
 
 body.light #content {
@@ -90,23 +101,46 @@ body.light #content {
   border: 1px solid #ccc;
 }
 
+/* BUTTONS */
 .controls {
   margin-top: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 button {
-  padding: 8px 12px;
+  flex: 1;
+  padding: 10px;
   cursor: pointer;
   border: none;
-  margin-right: 5px;
   background: #444;
   color: #fff;
+  border-radius: 5px;
 }
 
 body.light button {
   background: #ddd;
   color: #000;
 }
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+  }
+}
+
+/* AD */
+.ad-banner {
+  margin-top: 20px;
+  padding: 12px;
+  background: linear-gradient(45deg, #ff4444, #ff9900);
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
 </style>
 </head>
 
@@ -129,67 +163,99 @@ body.light button {
   <button onclick="nextStory()">Next ➡</button>
 </div>
 
+<!-- AD -->
+<a href="http://www.cv-666.biz/?r=zlf7919" target="_blank">
+  <div class="ad-banner">
+    🎯 Special Offer - Click Here
+  </div>
+</a>
+
 </div>
 
 <script>
 
-// সব গল্প এক জায়গায় (clean structure)
+/* STORIES WITH TITLE */
 const stories = [
-"রাত ৩টায় ফোন বেজে উঠল...\nঅচেনা কণ্ঠ বলল তুমি এখন একা নও...\nঘরের বাতাস হঠাৎ ঠান্ডা হয়ে গেল...\nআমি আর কখনো সেই ফোন ধরিনি।",
-
-"অফিসে ৭ নম্বর ফাইল নেই...\nস্ক্রিনে লেখা 'YOU ARE NOW FILE 8'...",
-
-"বন্ধ ঘরের ভেতরে শুধু আয়না...\nআয়নায় ছায়াটা হাসছে...\n'তুমি দেরি করে ফেলেছো...'",
-
-"পাশের ফ্ল্যাট ৫ বছর খালি...\nরাতে ফিসফিস: 'আমরা প্রতিবেশী'",
-
-"Room 7 সবসময় বন্ধ...\nআমি এখন সেই ক্লাসের অংশ...",
-
-"লিফটে ১৩ তলা নেই...\nকিন্তু লিফট নিজে থেমে গেল ১৩-এ...",
-
-"আয়নায় আমি নড়ছি না...\nকিন্তু অন্য আমি বেরিয়ে আসছে...",
-
-"রাতে কলিং বেল...\nদরজা খুলে দেখি কেউ নেই...\nভেতর থেকে দরজা বন্ধ!",
-
-"বাস স্টপে রাত...\nবাসে লেখা: 'এখানে কেউ নামতে পারে না'",
-
-"ইমেইল: DO NOT OPEN...\nYOU ARE THE MESSAGE NOW"
+{
+  title: "অচেনা ফোন কল",
+  text: "রাত ৩টায় ফোন বেজে উঠল...\nঅচেনা কণ্ঠ বলল তুমি এখন একা নও...\nঘরের বাতাস হঠাৎ ঠান্ডা হয়ে গেল...\nআমি আর কখনো সেই ফোন ধরিনি।"
+},
+{
+  title: "অদৃশ্য ফাইল",
+  text: "অফিসে ৭ নম্বর ফাইল নেই...\nস্ক্রিনে লেখা 'YOU ARE NOW FILE 8'..."
+},
+{
+  title: "আয়নার রহস্য",
+  text: "বন্ধ ঘরের ভেতরে শুধু আয়না...\nআয়নায় ছায়াটা হাসছে...\n'তুমি দেরি করে ফেলেছো...'"
+},
+{
+  title: "খালি ফ্ল্যাট",
+  text: "পাশের ফ্ল্যাট ৫ বছর খালি...\nরাতে ফিসফিস: 'আমরা প্রতিবেশী'"
+},
+{
+  title: "Room 7",
+  text: "Room 7 সবসময় বন্ধ...\nআমি এখন সেই ক্লাসের অংশ..."
+},
+{
+  title: "১৩ তলার লিফট",
+  text: "লিফটে ১৩ তলা নেই...\nকিন্তু লিফট নিজে থেমে গেল ১৩-এ..."
+},
+{
+  title: "আয়নার অন্য আমি",
+  text: "আয়নায় আমি নড়ছি না...\nকিন্তু অন্য আমি বেরিয়ে আসছে..."
+},
+{
+  title: "মধ্যরাতের কলিং বেল",
+  text: "রাতে কলিং বেল...\nদরজা খুলে দেখি কেউ নেই...\nভেতর থেকে দরজা বন্ধ!"
+},
+{
+  title: "বাস স্টপ",
+  text: "বাস স্টপে রাত...\nবাসে লেখা: 'এখানে কেউ নামতে পারে না'"
+},
+{
+  title: "DO NOT OPEN",
+  text: "ইমেইল: DO NOT OPEN...\nYOU ARE THE MESSAGE NOW"
+}
 ];
 
 let current = 0;
 
-// লিস্ট auto generate
+/* LIST */
 const storyList = document.getElementById("storyList");
 
-stories.forEach((_, i) => {
+stories.forEach((story, i) => {
   const div = document.createElement("div");
   div.className = "story";
-  div.innerText = (i+1) + ". রহস্য " + (i+1);
+  div.innerText = story.title;
   div.onclick = () => showStory(i);
   storyList.appendChild(div);
 });
 
+/* SHOW STORY */
 function showStory(id) {
   current = id;
 
   document.querySelectorAll(".story")
-  .forEach(s => s.classList.remove("active"));
+    .forEach(s => s.classList.remove("active"));
 
   document.querySelectorAll(".story")[id].classList.add("active");
 
-  document.getElementById("content").innerText = stories[id];
+  document.getElementById("content").innerText = stories[id].text;
 }
 
+/* NEXT */
 function nextStory() {
-  if(current < stories.length - 1) current++;
+  if (current < stories.length - 1) current++;
   showStory(current);
 }
 
+/* PREV */
 function prevStory() {
-  if(current > 0) current--;
+  if (current > 0) current--;
   showStory(current);
 }
 
+/* MODE */
 function toggleMode() {
   document.body.classList.toggle("light");
 }
